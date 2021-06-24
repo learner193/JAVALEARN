@@ -14,9 +14,9 @@ import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
-public class JVsWINGtestText5 {
+public class JVsWINGtestText6 {
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(JVsWINGtestText5::CreateGui);
+		SwingUtilities.invokeLater(JVsWINGtestText6::CreateGui);
 		
 	}
 	private static void CreateGui() {
@@ -32,10 +32,28 @@ public class JVsWINGtestText5 {
 		
 		
 		JPanel panel=new JPanel();
+		ButtonGroup group=new ButtonGroup();
+		JRadioButton italic1=new JRadioButton("ITALIC");
+		JRadioButton bold1=new JRadioButton("BOLD");
+		group.add(italic1);
+		group.add(bold1);
+		ActionListener listener2=new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int mode =0;
+				if (bold1.isSelected())mode+=Font.BOLD;
+				if(italic1.isSelected())mode+=Font.ITALIC;
+				label1.setFont(new Font("黑体",mode,20));				
+			}			
+		};
+		italic1.addActionListener(listener2);
+		bold1.addActionListener(listener2);
+		
+		
+		
 		JCheckBox italic=new JCheckBox("ITALIC");
 		JCheckBox bold=new JCheckBox("BOLD");
-		JCheckBox black=new JCheckBox("black");
-		JCheckBox song=new JCheckBox("song");
 		
 		ActionListener listener=new ActionListener() {
 
@@ -44,24 +62,20 @@ public class JVsWINGtestText5 {
 				int mode =0;
 				if (bold.isSelected())mode+=Font.BOLD;
 				if(italic.isSelected())mode+=Font.ITALIC;
-				
-				
-				
-				if(black.isSelected())
-					label1.setFont(new Font("黑体",mode,20));
-				if(song.isSelected())
-					label1.setFont(new Font("宋体",mode,20));
+				label1.setFont(new Font("黑体",mode,20));				
 			}			
 		};
 		
 		italic.addActionListener(listener);
 		bold.addActionListener(listener);
-		black.addActionListener(listener);
-		song.addActionListener(listener);
+		
+		
 		panel.add(italic);
 		panel.add(bold);
-		panel.add(song);
-		panel.add(black);
+		panel.add(italic1);
+		panel.add(bold1);
+		
+		
 		
 		f.add(label1,BorderLayout.CENTER);
 		f.add(panel,BorderLayout.PAGE_END);
